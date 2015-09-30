@@ -36,6 +36,20 @@ public class Blog {
 	@OneToMany(mappedBy="blog")
 	private List<Item> items;
 	
+	
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public List<Item> getItems() {
+		return items;
+	}
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
 	public Integer getId() {
 		return id;
 	}

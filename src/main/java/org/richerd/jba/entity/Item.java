@@ -29,6 +29,14 @@ public class Item {
 	@JoinColumn(name="blog_id")
 	private Blog blog;
 	
+	
+	
+	public Blog getBlog() {
+		return blog;
+	}
+	public void setBlog(Blog blog) {
+		this.blog = blog;
+	}
 	public Integer getId() {
 		return id;
 	}

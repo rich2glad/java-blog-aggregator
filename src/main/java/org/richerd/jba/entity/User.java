@@ -34,6 +34,24 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private List<Blog> blogs;
 	
+	
+	
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	public List<Blog> getBlogs() {
+		return blogs;
+	}
+
+	public void setBlogs(List<Blog> blogs) {
+		this.blogs = blogs;
+	}
 
 	public Integer getId() {
 		return id;
