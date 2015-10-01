@@ -41,5 +41,7 @@
 	</bean>
 	<jpa:repositories base-package="org.richerd.jba.repository" entity-manager-factory-ref="emf" 
 	transaction-manager-ref="transactionManager"></jpa:repositories>
+	
+	<import resource="security.xml"/>
 
 </beans>

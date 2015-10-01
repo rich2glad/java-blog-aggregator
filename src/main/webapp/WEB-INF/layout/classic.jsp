@@ -45,7 +45,7 @@
             <ul class="nav navbar-nav">
               <li class="${current == 'index' ?'active' : ''}"><a href='<spring:url value="/" />'>Home</a></li>
               <li class="${current == 'users' ?'active' : ''}"><a href="<spring:url value="/users.html"></spring:url>">Users</a></li>
-              <li><a href="#">Link</a></li>
+               <li class="${current == 'register' ?'active' : ''}"><a href="<spring:url value="/register.html"></spring:url>">Register</a></li>
               
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
