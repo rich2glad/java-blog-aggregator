@@ -18,6 +18,7 @@ import org.richerd.jba.repository.ItemRepository;
 import org.richerd.jba.repository.RoleRepository;
 import org.richerd.jba.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,20 +41,33 @@ public class InitDbService {
 	@PostConstruct
 	public void init(){
 		Role roleUSer= new Role();
-		roleUSer.setName("Role_USER");
+		roleUSer.setName("ROLE_USER");
 		roleRepository.save(roleUSer);
 		
 		Role roleAdmin= new Role();
-		roleAdmin.setName("Role_Admin");
+		roleAdmin.setName("ROLE_ADMIN");
 		roleRepository.save(roleAdmin);
 		
 		User userAdmin = new User();
 		userAdmin.setName("admin");
+		BCryptPasswordEncoder encoder= new BCryptPasswordEncoder();
+		String encode = encoder.encode("admin");
+		userAdmin.setPassword(encode);
+		userAdmin.setEnabled(true);
 		List<Role> roles = new ArrayList<Role>();
 		roles.add(roleAdmin);
 		roles.add(roleUSer);
-		userAdmin.setRoles(null);
+		userAdmin.setRoles(roles);
 		userRepository.save(userAdmin);
+		
+		User userAdmin1 = new User();
+		userAdmin1.setName("user");
+		userAdmin1.setPassword(encoder.encode("user"));
+		userAdmin1.setEnabled(true);
+		List<Role> roles1 = new ArrayList<Role>();
+		roles1.add(roleAdmin);
+		userAdmin1.setRoles(roles1);
+		userRepository.save(userAdmin1);
 		
 		Blog blog= new Blog();
 		blog.setName("richerd");

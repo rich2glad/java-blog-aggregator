@@ -1,6 +1,10 @@
 package org.richerd.jba.controller;
 
+import java.security.Principal;
+
+import org.richerd.jba.entity.Blog;
 import org.richerd.jba.entity.User;
+import org.richerd.jba.service.BlogService;
 import org.richerd.jba.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +20,19 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private BlogService blogService;
+	
 	@ModelAttribute("user")
-	public User construct(){
+	public User constructUser(){
 		return new User();
 	}
+	
+	@ModelAttribute("blog")
+	public Blog constructBlog(){
+		return new Blog();
+	}
+	
 	
 	@RequestMapping("/users")
 	public String users(Model model){
@@ -41,7 +54,35 @@ public class UserController {
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String doRegister(@ModelAttribute("user") User user){
 		userService.save(user);
-		return "user-register";
+		return "redirect:/register.html?success=true";
+	}
+	
+	
+	@RequestMapping("/account")
+	public String account(Model model, Principal principal){
+		String name = principal.getName();
+		model.addAttribute("user",userService.findOneWithBlogs(name));
+		return "user-detail";
+	}
+	
+	@RequestMapping(value="/account", method=RequestMethod.POST)
+	public String doAddBlog(@ModelAttribute("blog") Blog blog,Principal principal){
+		String name= principal.getName();
+		blogService.save(blog,name);
+		return "redirect:/account.html";
+	}
+	
+	@RequestMapping("/blog/remove/{id}")
+	public String removeBlog(@PathVariable int id){
+		Blog blog= blogService.findOne(id);
+		blogService.delete(blog);
+		return "redirect:/account.html";
+	}
+	
+	@RequestMapping("/user/remove/{id}")
+	public String removeUser(@PathVariable int id){
+		userService.delete(id);
+		return "redirect:/users.html";
 	}
 	
 }
