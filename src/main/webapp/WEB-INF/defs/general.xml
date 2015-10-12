@@ -38,4 +38,10 @@
     <put-attribute name="current" value="login"></put-attribute>
   </definition>
   
+  <definition name="account" extends="common">
+    <put-attribute name="title" value="User Account" />
+    <put-attribute name="body" value="/WEB-INF/jsp/user-account.jsp" />
+    <put-attribute name="current" value="account"></put-attribute>
+  </definition>
+  
 </tiles-definitions>

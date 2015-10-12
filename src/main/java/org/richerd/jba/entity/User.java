@@ -6,12 +6,18 @@ package org.richerd.jba.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.validator.constraints.Email;
+import org.richerd.jba.annontation.UniqueUsername;
 
 /**
  * @author Richerd
@@ -24,8 +30,14 @@ public class User {
 	@GeneratedValue
 	private Integer id;
 	
+	@Size(min=3, message="Name must be atleast 3 characters !")
+	@Column(unique=true)
+	@UniqueUsername(message="such user name already exsist")
 	private String name;
+	@Size(min=3, message="email must be atleast 3 characters !")
+	@Email
 	private String email;
+	@Size(min=3, message="Password must be atleast 5 characters !")
 	private String password;
 	
 	private boolean enabled;
